@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.gorjetaapp.databinding.ActivityMainBinding
+import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,13 +40,24 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnDone.setOnClickListener {
-            val totalTable: Float = binding.tilTotal.text.toString().toFloat()
-            val nPeople: Float = binding.numberOfPeople.text.toString().toFloat()
+            val totalTableTemp = binding.numberOfPeople.text
+            val nPeopleTemp = binding.numberOfPeople.text
 
-            val totalTemp = totalTable / nPeople
-            val tips = totalTemp * percentage / 100
-            val totalWithTips = totalTemp + tips
-            binding.tvResult.text = "Total width tips: $totalWithTips"
+            if (totalTableTemp?.isEmpty() == true ||
+                nPeopleTemp?. isEmpty() == true)
+                {
+                Snackbar
+                    .make(binding.tilTotal, "Preencha todos os campos", Snackbar.LENGTH_LONG)
+                    .show()
+            } else {
+                val totalTable: Float = binding.tilTotal.text.toString().toFloat()
+                val nPeople: Int = binding.numberOfPeople.text.toString().toInt()
+                val totalTemp = totalTable / nPeople
+                val tips = totalTemp * percentage / 100
+                val totalWithTips = totalTemp + tips
+                binding.tvResult.text = "Total width tips: $totalWithTips"
+            }
+
         }
 
 
