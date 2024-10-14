@@ -17,9 +17,36 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(binding.root)
 
+        var percentage: Int = 0
+        binding.rbOptionOne.setOnCheckedChangeListener { _, isCheked ->
+            if (isCheked)
+                percentage = 10
+        }
 
+        binding.rbOptionTwo.setOnCheckedChangeListener { _, isCheked ->
+            if (isCheked)
+                percentage = 15
+        }
 
+        binding.rbOptionThree.setOnCheckedChangeListener { _, ischeked ->
+            if (ischeked)
+                percentage = 20
+        }
 
+        binding.btnClean.setOnClickListener {
+            println(binding.tilTotal.text)
+            println(binding.numberOfPeople.text)
+        }
+
+        binding.btnDone.setOnClickListener {
+            val totalTable: Float = binding.tilTotal.text.toString().toFloat()
+            val nPeople: Float = binding.numberOfPeople.text.toString().toFloat()
+
+            val totalTemp = totalTable / nPeople
+            val tips = totalTemp * percentage / 100
+            val totalWithTips = totalTemp + tips
+            binding.tvResult.text = "Total width tips: $totalWithTips"
+        }
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
