@@ -1,5 +1,6 @@
 package com.example.gorjetaapp
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -55,11 +56,19 @@ class MainActivity : AppCompatActivity() {
                 val totalTemp = totalTable / nPeople
                 val tips = totalTemp * percentage / 100
                 val totalWithTips = totalTemp + tips
-                binding.tvResult.text = "Total width tips: $totalWithTips"
+
+                val intent = Intent(this, SumaryActivity:: class.java)
+                intent.apply {
+                    putExtra("totalTable", totalTable)
+                    putExtra("numpeople", nPeople)
+                    putExtra("percentage", percentage)
+                    putExtra("totalAmount", totalWithTips)
+
+                }
+                startActivity(intent)
             }
 
             binding.btnClean.setOnClickListener {
-                binding.tvResult.text = ""
                 binding.tilTotal.setText("")
                 binding.numberOfPeople.setText("")
                 binding.rbOptionOne.isChecked = false
